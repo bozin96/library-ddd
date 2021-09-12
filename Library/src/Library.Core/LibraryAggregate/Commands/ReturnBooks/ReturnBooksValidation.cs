@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Core.LibraryAggregate.Commands.BookReturning
+namespace Library.Core.LibraryAggregate.Commands.ReturnBooks
 {
-    class BookReturningValidation : AbstractValidator<BookReturningCommand>
+    class ReturnBooksValidation : AbstractValidator<ReturnBooksCommand>
     {
 
     }

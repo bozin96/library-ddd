@@ -6,28 +6,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Core.LibraryAggregate.Commands.BookReturning
+namespace Library.Core.LibraryAggregate.Commands.ReserveBooks
 {
-    public class BookReturningCommand : BaseCommand<BaseCommandResponse>
+    public class ReserveBooksCommand : BaseCommand<BaseCommandResponse>
     {
         public Guid LibraryId { get; set; }
 
-        public Guid BookLendingId { get; set; }
+        public List<Guid> BooksIds { get; set; }
 
         public Guid PatronId { get; set; }
 
-        public BookReturningCommand() { }
+        public ReserveBooksCommand() { }
 
-        public BookReturningCommand(Guid libraryId, Guid bookLendingId, Guid patronId)
+        public ReserveBooksCommand(Guid libraryId, List<Guid> booksIds, Guid patronId)
         {
             LibraryId = libraryId;
-            BookLendingId = BookLendingId;
+            BooksIds = booksIds;
             PatronId = patronId;
         }
 
         public override bool IsValid()
         {
-            ValidationResult validationResult = new BookReturningValidation().Validate(this);
+            ValidationResult validationResult = new ReserveBooksValidation().Validate(this);
             return validationResult.IsValid;
         }
     }

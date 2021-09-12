@@ -27,8 +27,6 @@ namespace Library.Web.Controllers
             return Ok(response);
         }
 
-
-
         [HttpPost("lend")]
         public IActionResult LendBooks(Guid libraryId, [FromBody] BookLendingRequest request)
         {
@@ -56,6 +54,21 @@ namespace Library.Web.Controllers
                 return BadRequest(new { message = "Wrong library id" });
 
             var response = _libraryService.ReturnBooks(request);
+            return Response(response);
+        }
+
+        [HttpPost("reserve")]
+        public IActionResult ReserveBooks(Guid libraryId, [FromBody] BookReservingRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return ResponseModelStateErrors();
+            }
+
+            if (libraryId != request.LibraryId)
+                return BadRequest(new { message = "Wrong library id" });
+
+            var response = _libraryService.ReserveBooks(request);
             return Response(response);
         }
     }

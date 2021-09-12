@@ -6,12 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Library.Core.LibraryAggregate.Commands.BookLending;
+using Library.Core.LibraryAggregate.Commands.LendBooks;
 using Library.SharedKernel;
 using Library.Core.LibraryAggregate;
 using Library.Application.Dtos.Books;
 using Library.Core.LibraryAggregate.Specifications;
-using Library.Core.LibraryAggregate.Commands.BookReturning;
+using Library.Core.LibraryAggregate.Commands.ReturnBooks;
+using Library.Core.LibraryAggregate.Commands.ReserveBooks;
 
 namespace Library.Application.Services
 {
@@ -33,8 +34,8 @@ namespace Library.Application.Services
 
         public BookLendingResponse LendBooks(BookLendingRequest bookLendingRequest)
         {
-            var bookLendingCommand = _mapper.Map<BookLendingCommand>(bookLendingRequest);
-            var baseCommandResponse = _mediator.SendCommand<BookLendingCommand, BaseCommandResponse>(bookLendingCommand).Result;
+            var bookLendingCommand = _mapper.Map<LendBooksCommand>(bookLendingRequest);
+            var baseCommandResponse = _mediator.SendCommand<LendBooksCommand, BaseCommandResponse>(bookLendingCommand).Result;
             var response = _mapper.Map<BookLendingResponse>(baseCommandResponse);
 
             return response;
@@ -42,9 +43,18 @@ namespace Library.Application.Services
 
         public BookReturningResponse ReturnBooks(BookReturningRequest bookReturningRequest)
         {
-            var bookReturningCommand = _mapper.Map<BookReturningCommand>(bookReturningRequest);
-            var baseCommandResponse = _mediator.SendCommand<BookReturningCommand, BaseCommandResponse>(bookReturningCommand).Result;
+            var bookReturningCommand = _mapper.Map<ReturnBooksCommand>(bookReturningRequest);
+            var baseCommandResponse = _mediator.SendCommand<ReturnBooksCommand, BaseCommandResponse>(bookReturningCommand).Result;
             var response = _mapper.Map<BookReturningResponse>(baseCommandResponse);
+
+            return response;
+        }
+
+        public BookReservingResponse ReserveBooks(BookReservingRequest bookReservingRequest)
+        {
+            var bookReservingCommand = _mapper.Map<ReserveBooksCommand>(bookReservingRequest);
+            var baseCommandResponse = _mediator.SendCommand<ReserveBooksCommand, BaseCommandResponse>(bookReservingCommand).Result;
+            var response = _mapper.Map<BookReservingResponse>(baseCommandResponse);
 
             return response;
         }

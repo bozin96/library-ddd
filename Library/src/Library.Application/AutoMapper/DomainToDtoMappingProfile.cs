@@ -2,7 +2,7 @@
 using Library.Application.Dtos.BookLendings;
 using Library.Application.Dtos.Books;
 using Library.Core.LibraryAggregate;
-using Library.Core.LibraryAggregate.Commands.BookLending;
+using Library.Core.LibraryAggregate.Commands.LendBooks;
 using Library.SharedKernel;
 using Library.SharedKernel.Extensions;
 using System;
@@ -36,6 +36,9 @@ namespace Library.Application.AutoMapper
                 .ForMember(
                     dest => dest.NumberOfAvailableCopies,
                     opt => opt.MapFrom(src => src.CurrentAvailableNumberOfCopies));
+
+            CreateMap<BaseCommandResponse, BookReservingResponse>()
+                .ConstructUsing(s => new BookReservingResponse(s.Status, s.StatusCode, s.Errors, s.Data));
         }
     }
 }

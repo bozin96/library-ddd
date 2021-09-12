@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentValidation.Results;
 
-namespace Library.Core.LibraryAggregate.Commands.BookLending
+namespace Library.Core.LibraryAggregate.Commands.LendBooks
 {
-    public class BookLendingCommand : BaseCommand<BaseCommandResponse>
+    public class LendBooksCommand : BaseCommand<BaseCommandResponse>
     {
         public Guid LibraryId { get; set; }
 
@@ -16,9 +16,9 @@ namespace Library.Core.LibraryAggregate.Commands.BookLending
 
         public Guid PatronId { get; set; }
 
-        public BookLendingCommand() { }
+        public LendBooksCommand() { }
 
-        public BookLendingCommand(Guid libraryId, List<Guid> booksIds, Guid patronId)
+        public LendBooksCommand(Guid libraryId, List<Guid> booksIds, Guid patronId)
         {
             LibraryId = libraryId;
             BooksIds = booksIds;
@@ -27,7 +27,7 @@ namespace Library.Core.LibraryAggregate.Commands.BookLending
 
         public override bool IsValid()
         {
-            ValidationResult validationResult = new BookLendingValidation().Validate(this);
+            ValidationResult validationResult = new LendBooksValidation().Validate(this);
             return validationResult.IsValid;
         }
     }

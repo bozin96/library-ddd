@@ -15,6 +15,8 @@ namespace Library.Application.Interfaces
 
         BookReturningResponse ReturnBooks(BookReturningRequest bookReturningRequest);
 
+        BookReservingResponse ReserveBooks(BookReservingRequest bookReservingRequest);
+
         Task<List<BookResponse>> GetLibraryBooks(Guid libraryId, ResourceParameters resourceParameters);
     }
 }

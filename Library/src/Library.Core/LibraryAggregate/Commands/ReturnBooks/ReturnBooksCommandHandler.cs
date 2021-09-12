@@ -12,15 +12,15 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Library.Core.LibraryAggregate.Commands.BookReturning
+namespace Library.Core.LibraryAggregate.Commands.ReturnBooks
 {
-    class BookReturningCommandHandler :
-         IRequestHandler<BookReturningCommand, BaseCommandResponse>
+    class ReturnBooksCommandHandler :
+         IRequestHandler<ReturnBooksCommand, BaseCommandResponse>
     {
         private readonly IRepository<Library> _libraryRepository;
         private readonly IRepository<Patron> _patronRepository;
 
-        public BookReturningCommandHandler(
+        public ReturnBooksCommandHandler(
             IRepository<Library> libraryRepository,
             IRepository<Patron> patronRepository
             )
@@ -29,7 +29,7 @@ namespace Library.Core.LibraryAggregate.Commands.BookReturning
             _patronRepository = patronRepository;
         }
 
-        public async Task<BaseCommandResponse> Handle(BookReturningCommand request, CancellationToken cancellationToken)
+        public async Task<BaseCommandResponse> Handle(ReturnBooksCommand request, CancellationToken cancellationToken)
         {
             if (!request.IsValid())
             {
@@ -47,7 +47,7 @@ namespace Library.Core.LibraryAggregate.Commands.BookReturning
             }
 
             // Get Library with book requested along with BookLendingRecord and BookReservation record for that user by Id.
-            LibraryWithPatronLendedBooksSpec libraryWithPatronLendedBooksSpec = new(request.LibraryId, request.PatronId, request.BookLendingId);
+            LibraryWithPatronLendedBooksSpec libraryWithPatronLendedBooksSpec = new(request.LibraryId, request.PatronId, request.BookReturningId);
             Library library = await _libraryRepository.GetBySpecAsync(libraryWithPatronLendedBooksSpec, cancellationToken);
             if (library == null)
             {

@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using Library.Application.Dtos.BookLendings;
-using Library.Core.LibraryAggregate.Commands.BookLending;
-using Library.Core.LibraryAggregate.Commands.BookReturning;
+using Library.Core.LibraryAggregate.Commands.LendBooks;
+using Library.Core.LibraryAggregate.Commands.ReserveBooks;
+using Library.Core.LibraryAggregate.Commands.ReturnBooks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,14 @@ namespace Library.Application.AutoMapper
     {
         public DtoToDomainMappingProfile()
         {
-            CreateMap<BookLendingRequest, BookLendingCommand>()
-                .ConstructUsing(s => new BookLendingCommand(s.LibraryId, s.BooksIds, s.PatronId));
+            CreateMap<BookLendingRequest, LendBooksCommand>()
+                .ConstructUsing(s => new LendBooksCommand(s.LibraryId, s.BooksIds, s.PatronId));
 
-            CreateMap<BookReturningRequest, BookReturningCommand>()
-                .ConstructUsing(s => new BookReturningCommand(s.LibraryId, s.BookLendingId, s.PatronId));
+            CreateMap<BookReturningRequest, ReturnBooksCommand>()
+                .ConstructUsing(s => new ReturnBooksCommand(s.LibraryId, s.BookLendingId, s.PatronId));
+
+            CreateMap<BookReservingRequest, ReserveBooksCommand>()
+                .ConstructUsing(s => new ReserveBooksCommand(s.LibraryId, s.BooksIds, s.PatronId));
         }
     }
 }

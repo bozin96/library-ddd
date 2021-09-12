@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Core.LibraryAggregate.Commands.BookLending
+namespace Library.Core.LibraryAggregate.Commands.LendBooks
 {
-    public class BookLendingValidation : AbstractValidator<BookLendingCommand>
+    public class LendBooksValidation : AbstractValidator<LendBooksCommand>
     {
 
     }

@@ -17,5 +17,13 @@ namespace Library.Core.LibraryAggregate.Guards
                 throw new DuplicateBookLendingException("Cannot add duplicate book lending.", parameterName);
             }
         }
+
+        public static void DuplicateBookReservation(this IGuardClause guardClause, IEnumerable<BookReservation> existingBookReservation, BookReservation bookReservation, string parameterName)
+        {
+            if (existingBookReservation.Any(bl => bl.Id == bookReservation.Id))
+            {
+                throw new DuplicateBookLendingException("Cannot add duplicate book reservation.", parameterName);
+            }
+        }
     }
 }

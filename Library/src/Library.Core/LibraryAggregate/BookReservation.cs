@@ -21,7 +21,7 @@ namespace Library.Core.LibraryAggregate
 
         public BookReservation() { }
 
-        public BookReservation(Guid patronId, Guid bookId, DateTime startDate, DateTime endDate)
+        public BookReservation(Guid id, Guid patronId, Guid bookId, DateTime startDate, DateTime endDate)
         {
             if (endDate <= startDate)
                 throw new ArgumentOutOfRangeException(nameof(endDate), "Reservation end date must be greater than start date.");
@@ -30,6 +30,7 @@ namespace Library.Core.LibraryAggregate
             if (endDate < DateTime.Now)
                 throw new ArgumentOutOfRangeException(nameof(endDate), "Reservation end date must be later than now.");
 
+            Id = Guard.Against.Default(id, nameof(id));
             PatronId = Guard.Against.Default(patronId, nameof(patronId));
             BookId = Guard.Against.Default(bookId, nameof(bookId)); ;
 
