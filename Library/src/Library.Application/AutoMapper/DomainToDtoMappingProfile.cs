@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using Library.Application.Dtos.Authors;
 using Library.Application.Dtos.BookLendings;
 using Library.Application.Dtos.Books;
+using Library.Application.Dtos.Patrons;
 using Library.Core.LibraryAggregate;
 using Library.Core.LibraryAggregate.Commands.LendBooks;
+using Library.Core.SyncedAggregate;
 using Library.SharedKernel;
 using Library.SharedKernel.Extensions;
 using System;
@@ -37,8 +40,21 @@ namespace Library.Application.AutoMapper
                     dest => dest.NumberOfAvailableCopies,
                     opt => opt.MapFrom(src => src.CurrentAvailableNumberOfCopies));
 
+            CreateMap<Author, AuthorResponse>();
+
+            CreateMap<Patron, PatronResponse>();
+
             CreateMap<BaseCommandResponse, BookReservingResponse>()
                 .ConstructUsing(s => new BookReservingResponse(s.Status, s.StatusCode, s.Errors, s.Data));
+
+            CreateMap<BaseCommandResponse, BookAddResponse>()
+                .ConstructUsing(s => new BookAddResponse(s.Status, s.StatusCode, s.Errors, s.Data));
+
+            CreateMap<BaseCommandResponse, AuthorAddResponse>()
+                .ConstructUsing(s => new AuthorAddResponse(s.Status, s.StatusCode, s.Errors, s.Data));
+
+            CreateMap<BaseCommandResponse, PatronAddResponse>()
+                .ConstructUsing(s => new PatronAddResponse(s.Status, s.StatusCode, s.Errors, s.Data));
         }
     }
 }

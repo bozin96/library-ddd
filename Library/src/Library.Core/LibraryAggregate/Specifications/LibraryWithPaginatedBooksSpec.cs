@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Library.Core.LibraryAggregate.Specifications
 {
-    public class LibraryWithPaginatedBooks : Specification<Library>, ISingleResultSpecification
+    public class LibraryWithPaginatedBooksSpec : Specification<Library>, ISingleResultSpecification
     {
-        public LibraryWithPaginatedBooks(Guid libraryId, ResourceParameters resorceParameters)
+        public LibraryWithPaginatedBooksSpec(Guid libraryId, ResourceParameters resorceParameters)
         {
             Query
               .Where(l => l.Id == libraryId)

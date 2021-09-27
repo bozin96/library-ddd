@@ -27,8 +27,8 @@ namespace Library.Core.LibraryAggregate.Commands.ReturnBooks
 
         public override bool IsValid()
         {
-            ValidationResult validationResult = new ReturnBooksValidation().Validate(this);
-            return validationResult.IsValid;
+            ValidationResult = new ReturnBooksValidation().Validate(this);
+            return ValidationResult.IsValid;
         }
     }
 }

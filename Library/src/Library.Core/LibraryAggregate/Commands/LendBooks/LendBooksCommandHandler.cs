@@ -30,12 +30,12 @@ namespace Library.Core.LibraryAggregate.Commands.LendBooks
 
         async Task<BaseCommandResponse> IRequestHandler<LendBooksCommand, BaseCommandResponse>.Handle(LendBooksCommand request, CancellationToken cancellationToken)
         {
+            BaseCommandResponse response = new BaseCommandResponse();
             if (!request.IsValid())
             {
-
+                response.AddErrors(request.ValidationResult.Errors.Select(e => e.ErrorMessage).ToList());
+                return response;
             }
-
-            BaseCommandResponse response = new BaseCommandResponse();
 
             // Provera koji je user, da li moze da uzme toliko knjiga.
             // Koje su knjige, da li su tipa da mogu da se iznose i koji je user, koji je broj kopija ostao i to.
@@ -78,7 +78,7 @@ namespace Library.Core.LibraryAggregate.Commands.LendBooks
             //reduce number of available copies
             library.Books.ForEach(b => b.LendBookCopy());
 
-            var responseData = new List<BookLending>();
+            List<BookLending> responseData = new List<BookLending>();
             // Create BookLending records.
             foreach (Book book in library.Books)
             {

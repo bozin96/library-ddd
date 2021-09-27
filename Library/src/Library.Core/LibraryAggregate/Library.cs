@@ -38,7 +38,21 @@ namespace Library.Core.LibraryAggregate
         }
 
         // Izbaci bolje ovo jer ovo moze da pozove od negde bez one prethodne validacije
-        public BookLending AddNewBookLending(BookLending bookLending)
+        internal Book AddNewBook(Book book)
+        {
+            Guard.Against.Null(book, nameof(book));
+            Guard.Against.Default(book.Id, nameof(book.Id));
+            Guard.Against.Default(book.AuthorId, nameof(book.AuthorId));
+
+            _books.Add(book);
+
+            //BookAddedEvent bookAddedEvent = new BookAddedEvent(book);
+            //Events.Add(bookAddedEvent);
+
+            return book;
+        }
+
+        internal BookLending AddNewBookLending(BookLending bookLending)
         {
             Guard.Against.Null(bookLending, nameof(bookLending));
             Guard.Against.Default(bookLending.Id, nameof(bookLending.Id));
@@ -52,7 +66,7 @@ namespace Library.Core.LibraryAggregate
             return bookLending;
         }
 
-        public BookReservation AddNewBookReservation(BookReservation bookReservation)
+        internal BookReservation AddNewBookReservation(BookReservation bookReservation)
         {
             Guard.Against.Null(bookReservation, nameof(bookReservation));
             Guard.Against.Default(bookReservation.Id, nameof(bookReservation.Id));

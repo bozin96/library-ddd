@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,12 +30,12 @@ namespace Library.Core.LibraryAggregate.Commands.ReserveBooks
 
         public async Task<BaseCommandResponse> Handle(ReserveBooksCommand request, CancellationToken cancellationToken)
         {
+            BaseCommandResponse response = new BaseCommandResponse();
             if (!request.IsValid())
             {
-
+                response.AddErrors(request.ValidationResult.Errors.Select(e => e.ErrorMessage).ToList());
+                return response;
             }
-
-            BaseCommandResponse response = new BaseCommandResponse();
 
             // Get Patron.
             Patron patron = await _patronRepository.GetByIdAsync(request.PatronId);

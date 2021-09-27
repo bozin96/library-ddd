@@ -27,8 +27,8 @@ namespace Library.Core.LibraryAggregate.Commands.LendBooks
 
         public override bool IsValid()
         {
-            ValidationResult validationResult = new LendBooksValidation().Validate(this);
-            return validationResult.IsValid;
+            ValidationResult  = new LendBooksValidation().Validate(this);
+            return ValidationResult.IsValid;
         }
     }
 }

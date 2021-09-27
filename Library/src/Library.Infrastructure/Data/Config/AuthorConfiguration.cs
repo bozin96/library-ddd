@@ -1,4 +1,4 @@
-﻿using Library.Core.LibraryAggregate;
+﻿using Library.Core.SyncedAggregate;
 using Library.Infrastructure.Data.Config.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

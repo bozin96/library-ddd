@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Library.SharedKernel;
+using Library.Application.Dtos.Books;
 
 namespace Library.Web.Controllers
 {
-    [Route("api/library/{libraryId}/books")]
+    [Route("api/libraries/{libraryId}/books")]
     public class BooksController : ApiController
     {
         private readonly ILibraryService _libraryService;
@@ -24,6 +25,13 @@ namespace Library.Web.Controllers
         public async Task<IActionResult> GetBooks(Guid libraryId, [FromQuery] ResourceParameters resourceParameters)
         {
             var response = await _libraryService.GetLibraryBooks(libraryId, resourceParameters);
+            return Ok(response);
+        }
+
+        [HttpPost]
+        public IActionResult AddBook(Guid libraryId, BookAddRequest request)
+        {
+            var response = _libraryService.AddBook(libraryId, request);
             return Ok(response);
         }
 

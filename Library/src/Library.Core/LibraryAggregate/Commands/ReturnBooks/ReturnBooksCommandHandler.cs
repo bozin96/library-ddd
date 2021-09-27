@@ -31,12 +31,12 @@ namespace Library.Core.LibraryAggregate.Commands.ReturnBooks
 
         public async Task<BaseCommandResponse> Handle(ReturnBooksCommand request, CancellationToken cancellationToken)
         {
+            BaseCommandResponse response = new BaseCommandResponse();
             if (!request.IsValid())
             {
-
+                response.AddErrors(request.ValidationResult.Errors.Select(e => e.ErrorMessage).ToList());
+                return response;
             }
-
-            BaseCommandResponse response = new BaseCommandResponse();
 
             // Get Patron.
             Patron patron = await _patronRepository.GetByIdAsync(request.PatronId);

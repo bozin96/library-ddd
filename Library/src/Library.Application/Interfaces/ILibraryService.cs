@@ -18,5 +18,6 @@ namespace Library.Application.Interfaces
         BookReservingResponse ReserveBooks(BookReservingRequest bookReservingRequest);
 
         Task<List<BookResponse>> GetLibraryBooks(Guid libraryId, ResourceParameters resourceParameters);
+        BookAddResponse AddBook(Guid libraryId, BookAddRequest request);
     }
 }

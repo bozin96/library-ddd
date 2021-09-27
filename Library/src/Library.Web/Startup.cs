@@ -67,6 +67,9 @@ namespace Library.Web
             services.AddMapperSetup();
             services.AddScoped<IMediatorHandler, MediatorHandler>();
             services.AddTransient<ILibraryService, LibraryService>();
+            services.AddTransient<IAuthorService, AuthorService>();
+            services.AddTransient<IPatronService, PatronService>();
+
 
             // add list services for diagnostic purposes - see https://github.com/ardalis/AspNetCoreStartupServices
             services.Configure<ServiceConfig>(config =>

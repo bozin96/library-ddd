@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation.Results;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,12 @@ namespace Library.SharedKernel
     {
         public Guid AggregateId { get; protected set; }
         public DateTime DateOccurred { get; protected set; } = DateTime.UtcNow;
+        public ValidationResult ValidationResult { get; set; }
+
+        public BaseCommand()
+        {
+            DateOccurred = DateTime.UtcNow;
+        }
 
         public abstract bool IsValid();
     }

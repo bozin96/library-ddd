@@ -25,5 +25,12 @@ namespace Library.SharedKernel
             Errors.Add(error);
         }
 
+        public void AddErrors(List<string> errors, int statusCode = 400)
+        {
+            Status = false;
+            Errors = errors;
+            StatusCode = statusCode;
+        }
+
     }
 }

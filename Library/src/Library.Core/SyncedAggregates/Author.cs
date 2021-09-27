@@ -4,9 +4,9 @@ using Library.SharedKernel.Interfaces;
 using System;
 using System.Collections.Generic;
 
-namespace Library.Core.LibraryAggregate
+namespace Library.Core.SyncedAggregate
 {
-    public class Author : BaseEntity<Guid>
+    public class Author : BaseEntity<Guid>, IAggregateRoot
     {
         public string FirstName { get; private set; }
 
@@ -18,12 +18,12 @@ namespace Library.Core.LibraryAggregate
 
         public DateTime? DateOfDeath { get; private set; }
 
-        public IList<Book> Books { get; private set; } = new List<Book>();
+        //public IList<Book> Books { get; private set; } = new List<Book>();
 
         public Author(Guid id)
         {
             Id = id;
-            Books = new List<Book>();
+            //Books = new List<Book>();
         }
 
         public Author(

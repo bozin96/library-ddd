@@ -13,6 +13,7 @@ using Library.Application.Dtos.Books;
 using Library.Core.LibraryAggregate.Specifications;
 using Library.Core.LibraryAggregate.Commands.ReturnBooks;
 using Library.Core.LibraryAggregate.Commands.ReserveBooks;
+using Library.Core.LibraryAggregate.Commands.AddBooks;
 
 namespace Library.Application.Services
 {
@@ -61,11 +62,20 @@ namespace Library.Application.Services
 
         public async Task<List<BookResponse>> GetLibraryBooks(Guid libraryId, ResourceParameters resourceParameters)
         {
-            LibraryWithPaginatedBooks libraryWithPaginatedBooks = new LibraryWithPaginatedBooks(libraryId, resourceParameters);
+            LibraryWithPaginatedBooksSpec libraryWithPaginatedBooks = new LibraryWithPaginatedBooksSpec(libraryId, resourceParameters);
             var libraryBooks = await _libraryRepository.GetBySpecAsync(libraryWithPaginatedBooks);
             var books = _mapper.Map<List<BookResponse>>(libraryBooks.Books);
 
             return books;
+        }
+
+        public BookAddResponse AddBook(Guid libraryId, BookAddRequest bookAddRequest)
+        {
+            var bookAddCommand = _mapper.Map<AddBooksCommand>(bookAddRequest);
+            var baseCommandResponse = _mediator.SendCommand<AddBooksCommand, BaseCommandResponse>(bookAddCommand).Result;
+            var response = _mapper.Map<BookAddResponse>(baseCommandResponse);
+
+            return response;
         }
     }
 }

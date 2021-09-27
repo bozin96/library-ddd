@@ -27,8 +27,8 @@ namespace Library.Core.LibraryAggregate.Commands.ReserveBooks
 
         public override bool IsValid()
         {
-            ValidationResult validationResult = new ReserveBooksValidation().Validate(this);
-            return validationResult.IsValid;
+            ValidationResult = new ReserveBooksValidation().Validate(this);
+            return ValidationResult.IsValid;
         }
     }
 }
