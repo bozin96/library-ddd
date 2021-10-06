@@ -44,7 +44,7 @@ namespace Library.Application.Services
         public PatronAddResponse AddPatron(PatronAddRequest request)
         {
             var patronAddCommand = _mapper.Map<AddPatronCommand>(request);
-            var baseCommandResponse = _mediator.SendCommand<AddPatronCommand, BaseCommandResponse>(patronAddCommand).Result;
+            var baseCommandResponse = _mediator.SendCommand(patronAddCommand).Result;
             var response = _mapper.Map<PatronAddResponse>(baseCommandResponse);
 
             return response;

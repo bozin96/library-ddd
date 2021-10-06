@@ -1,5 +1,4 @@
 ﻿using Library.Core.LibraryAggregate;
-using Library.Core.ProjectAggregate;
 using Library.Core.SyncedAggregate;
 using Library.Core.ValueObjects;
 using Library.Infrastructure.Data;
@@ -15,7 +14,7 @@ namespace Library.Web
         public static void Initialize(IServiceProvider serviceProvider)
         {
             using (var dbContext = new AppDbContext(
-                serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>(), null))
+                serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>(), null, null))
             {
                 Guid libraryId = Guid.Parse("8DCFD67A-1354-42F2-A0BC-C5731310A249");
 

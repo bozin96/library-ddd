@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Library.Core.SyncedAggregates.Commands.AddAuthor
 {
-    public class AddAuthorCommand : BaseCommand<BaseCommandResponse>
+    public class AddAuthorCommand : BaseCommand
     {
         public string FirstName { get; private set; }
 

@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Library.Application.Dtos.Authors;
 using Library.Application.Interfaces;
+using Library.Core.LibraryAggregate.Commands.CheckBookLendings;
 using Library.Core.SyncedAggregate;
 using Library.Core.SyncedAggregates.Commands.AddAuthor;
+using Library.Core.SyncedAggregates.Commands.CheckCommand;
 using Library.Core.SyncedAggregates.Specifications;
 using Library.SharedKernel;
 using Library.SharedKernel.Interfaces;
@@ -41,11 +43,19 @@ namespace Library.Application.Services
         public AuthorAddResponse AddAuthor(AuthorAddRequest request)
         {
             var authorAddCommand = _mapper.Map<AddAuthorCommand>(request);
-            var baseCommandResponse = _mediator.SendCommand<AddAuthorCommand, BaseCommandResponse>(authorAddCommand).Result;
+            var baseCommandResponse = _mediator.SendCommand(authorAddCommand).Result;
             var response = _mapper.Map<AuthorAddResponse>(baseCommandResponse);
+
+            _mediator.ScheduleCommand(new CheckCommand()
+            {
+                Proba = request.FirstName,
+                Proba2 = request.LastName,
+                Test = 1
+            }, TimeSpan.FromMinutes(1));
+
+            //_mediator.ScheduleCommand(new CheckBookLendingsCommand(Guid.NewGuid(), new List<Guid>() { Guid.NewGuid() }, Guid.NewGuid(), request.FirstName));
 
             return response;
         }
-
     }
 }

@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="LibraryAggregate\Events\BookReturned\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

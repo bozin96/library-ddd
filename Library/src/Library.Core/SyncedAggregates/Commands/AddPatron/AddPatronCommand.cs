@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Library.Core.SyncedAggregates.Commands.AddPatron
 {
-    public class AddPatronCommand : BaseCommand<BaseCommandResponse>
+    public class AddPatronCommand : BaseCommand
     {
         public string FirstName { get; private set; }
         public string MiddleName { get; private set; }

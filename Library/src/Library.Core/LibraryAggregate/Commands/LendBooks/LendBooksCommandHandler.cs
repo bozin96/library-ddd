@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Library.Core.SyncedAggregate;
+using Library.Core.LibraryAggregate.Events.BookLended;
 
 namespace Library.Core.LibraryAggregate.Commands.LendBooks
 {
@@ -53,7 +54,7 @@ namespace Library.Core.LibraryAggregate.Commands.LendBooks
             }
 
             // Get Library with requested books along with active BookLendings and BookReservations record for that user by Id.
-            LibraryWithPatronLendedAndReservedBooksSpec libraryWithPatronLendedBooksSpec = new(request.LibraryId, request.PatronId, request.BooksIds);
+            LibraryWithPatronLentAndReservedBooksSpec libraryWithPatronLendedBooksSpec = new(request.LibraryId, request.PatronId, request.BooksIds);
             Library library = await _libraryRepository.GetBySpecAsync(libraryWithPatronLendedBooksSpec, cancellationToken);
             if (library == null)
             {
@@ -84,8 +85,14 @@ namespace Library.Core.LibraryAggregate.Commands.LendBooks
             {
                 // neki transactionId da poveze one koje su iznajmljene zajedno.
                 BookLending bookLending = new BookLending(Guid.NewGuid(), request.PatronId, book, DateTime.Now.AddDays(30));
-                responseData.Add(bookLending);
+
+                // Add BookLentEvent.
+                //var bookLentEvent = new BookLentEvent(bookLending.BookId, bookLending.PatronId);
+                //bookLending.Events.Add(bookLentEvent);
+
+                // Add BookLending to Library.
                 library.AddNewBookLending(bookLending);
+                responseData.Add(bookLending);
             }
 
             // Save changes to db.

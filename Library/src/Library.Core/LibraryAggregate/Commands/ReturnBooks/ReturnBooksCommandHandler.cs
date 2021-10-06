@@ -47,7 +47,7 @@ namespace Library.Core.LibraryAggregate.Commands.ReturnBooks
             }
 
             // Get Library with book requested along with BookLendingRecord and BookReservation record for that user by Id.
-            LibraryWithPatronLendedBooksSpec libraryWithPatronLendedBooksSpec = new(request.LibraryId, request.PatronId, request.BookReturningId);
+            LibraryWithPatronLentBooksSpec libraryWithPatronLendedBooksSpec = new(request.LibraryId, request.PatronId, request.BookReturningId);
             Library library = await _libraryRepository.GetBySpecAsync(libraryWithPatronLendedBooksSpec, cancellationToken);
             if (library == null)
             {

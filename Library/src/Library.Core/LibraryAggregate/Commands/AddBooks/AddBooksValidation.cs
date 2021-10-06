@@ -10,7 +10,7 @@ namespace Library.Core.LibraryAggregate.Commands.AddBooks
         public AddBooksValidation()
         {
             ValidateTitle();
-            ValidateAuthorIdId();
+            ValidateAuthorId();
             ValidateISBN();
         }
 
@@ -20,7 +20,7 @@ namespace Library.Core.LibraryAggregate.Commands.AddBooks
                 .WithMessage("Name must have between 1 and 60 characters.");
         }
 
-        private void ValidateAuthorIdId()
+        private void ValidateAuthorId()
         {
             RuleFor(c => c.AuthorId).NotEqual(Guid.Empty);
         }

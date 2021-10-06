@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,10 @@ namespace Library.SharedKernel.Interfaces
 {
     public interface IMediatorHandler
     {
-        Task<U> SendCommand<T,U>(T command) where T : BaseCommand<U> where U: BaseCommandResponse;
+        Task<BaseCommandResponse> SendCommand<T>(T command) where T : BaseCommand;
+
         Task RaiseEvent<T>(T @event) where T : BaseDomainEvent;
+
+        void ScheduleCommand(BaseCommandWithoutResult command, TimeSpan delay);
     }
 }

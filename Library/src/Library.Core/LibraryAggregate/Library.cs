@@ -60,7 +60,7 @@ namespace Library.Core.LibraryAggregate
 
             _bookLendings.Add(bookLending);
 
-            BookLentEvent bookLendedEvent = new BookLentEvent(bookLending);
+            BookLentEvent bookLendedEvent = new BookLentEvent(bookLending.BookId, bookLending.PatronId);
             Events.Add(bookLendedEvent);
 
             return bookLending;
@@ -74,7 +74,7 @@ namespace Library.Core.LibraryAggregate
 
             _bookReservations.Add(bookReservation);
 
-            BookReservedEvent bookReservedEvent = new BookReservedEvent(bookReservation);
+            BookReservedEvent bookReservedEvent = new BookReservedEvent(bookReservation.BookId, bookReservation.PatronId);
             Events.Add(bookReservedEvent);
 
             return bookReservation;

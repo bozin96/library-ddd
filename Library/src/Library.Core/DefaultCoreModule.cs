@@ -1,6 +1,4 @@
 ﻿using Autofac;
-using Library.Core.Interfaces;
-using Library.Core.Services;
 
 namespace Library.Core
 {
@@ -8,8 +6,8 @@ namespace Library.Core
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ToDoItemSearchService>()
-                .As<IToDoItemSearchService>().InstancePerLifetimeScope();
+            //builder.RegisterType<ToDoItemSearchService>()
+            //    .As<IToDoItemSearchService>().InstancePerLifetimeScope();
         }
     }
 }

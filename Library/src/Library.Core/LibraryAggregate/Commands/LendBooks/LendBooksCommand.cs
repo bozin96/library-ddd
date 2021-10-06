@@ -8,7 +8,7 @@ using FluentValidation.Results;
 
 namespace Library.Core.LibraryAggregate.Commands.LendBooks
 {
-    public class LendBooksCommand : BaseCommand<BaseCommandResponse>
+    public class LendBooksCommand : BaseCommand
     {
         public Guid LibraryId { get; set; }
 

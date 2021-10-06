@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace Library.Core.LibraryAggregate.Specifications
 {
-    public class LibraryWithPatronLendedAndReservedBooksSpec : Specification<Library>, ISingleResultSpecification
+    public class LibraryWithPatronLentAndReservedBooksSpec : Specification<Library>, ISingleResultSpecification
     {
-        public LibraryWithPatronLendedAndReservedBooksSpec(Guid libraryId, Guid patronId, List<Guid> booksIds)
+        public LibraryWithPatronLentAndReservedBooksSpec(Guid libraryId, Guid patronId, List<Guid> booksIds)
         {
             Query
               .Where(l => l.Id == libraryId)

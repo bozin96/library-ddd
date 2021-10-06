@@ -1,4 +1,6 @@
-﻿using Library.SharedKernel.Interfaces;
+﻿using Hangfire;
+using Library.SharedKernel.Extensions;
+using Library.SharedKernel.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -22,9 +24,14 @@ namespace Library.SharedKernel
             return _mediator.Publish(@event);
         }
 
-        public Task<U> SendCommand<T, U>(T command) where T : BaseCommand<U> where U : BaseCommandResponse
+        public Task<BaseCommandResponse> SendCommand<T>(T command) where T : BaseCommand
         {
             return _mediator.Send(command);
+        }
+
+        public void ScheduleCommand(BaseCommandWithoutResult command, TimeSpan delay)
+        {
+            _mediator.Schedule(command, delay);
         }
     }
 }

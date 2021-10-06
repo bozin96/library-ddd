@@ -14,6 +14,8 @@ using Library.Core.LibraryAggregate.Specifications;
 using Library.Core.LibraryAggregate.Commands.ReturnBooks;
 using Library.Core.LibraryAggregate.Commands.ReserveBooks;
 using Library.Core.LibraryAggregate.Commands.AddBooks;
+using Library.Core.LibraryAggregate.Commands.CheckBookLendings;
+using Newtonsoft.Json;
 
 namespace Library.Application.Services
 {
@@ -36,7 +38,14 @@ namespace Library.Application.Services
         public BookLendingResponse LendBooks(BookLendingRequest bookLendingRequest)
         {
             var bookLendingCommand = _mapper.Map<LendBooksCommand>(bookLendingRequest);
-            var baseCommandResponse = _mediator.SendCommand<LendBooksCommand, BaseCommandResponse>(bookLendingCommand).Result;
+            var baseCommandResponse = _mediator.SendCommand(bookLendingCommand).Result;
+            if (baseCommandResponse.Data is List<BookLending>)
+            {
+                List<BookLending> bookLendings = (List<BookLending>)baseCommandResponse.Data;
+                var checkCommandContent = new CheckBookLendingsCommandContent(bookLendingRequest.LibraryId, bookLendingRequest.PatronId, bookLendings.Select(bl => bl.Id).ToList());
+                var checkCommand = new CheckBookLendingsCommand(JsonConvert.SerializeObject(checkCommandContent));
+                _mediator.ScheduleCommand(checkCommand, TimeSpan.FromMinutes(1));
+            }
             var response = _mapper.Map<BookLendingResponse>(baseCommandResponse);
 
             return response;
@@ -45,7 +54,7 @@ namespace Library.Application.Services
         public BookReturningResponse ReturnBooks(BookReturningRequest bookReturningRequest)
         {
             var bookReturningCommand = _mapper.Map<ReturnBooksCommand>(bookReturningRequest);
-            var baseCommandResponse = _mediator.SendCommand<ReturnBooksCommand, BaseCommandResponse>(bookReturningCommand).Result;
+            var baseCommandResponse = _mediator.SendCommand(bookReturningCommand).Result;
             var response = _mapper.Map<BookReturningResponse>(baseCommandResponse);
 
             return response;
@@ -54,7 +63,7 @@ namespace Library.Application.Services
         public BookReservingResponse ReserveBooks(BookReservingRequest bookReservingRequest)
         {
             var bookReservingCommand = _mapper.Map<ReserveBooksCommand>(bookReservingRequest);
-            var baseCommandResponse = _mediator.SendCommand<ReserveBooksCommand, BaseCommandResponse>(bookReservingCommand).Result;
+            var baseCommandResponse = _mediator.SendCommand(bookReservingCommand).Result;
             var response = _mapper.Map<BookReservingResponse>(baseCommandResponse);
 
             return response;
@@ -72,7 +81,7 @@ namespace Library.Application.Services
         public BookAddResponse AddBook(Guid libraryId, BookAddRequest bookAddRequest)
         {
             var bookAddCommand = _mapper.Map<AddBooksCommand>(bookAddRequest);
-            var baseCommandResponse = _mediator.SendCommand<AddBooksCommand, BaseCommandResponse>(bookAddCommand).Result;
+            var baseCommandResponse = _mediator.SendCommand(bookAddCommand).Result;
             var response = _mapper.Map<BookAddResponse>(baseCommandResponse);
 
             return response;

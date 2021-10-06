@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Library.SharedKernel.Interfaces
 {
-    public interface IBaseCommandHandler<TCommand, TOutput> where TCommand : BaseCommand<TOutput> where TOutput : BaseCommandResponse
+    public interface IBaseCommandHandler<TCommand, TOutput> where TCommand : BaseCommand
     {
         TOutput Handle(TCommand command);
     }

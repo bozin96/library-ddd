@@ -1,5 +1,6 @@
 ﻿using Library.Core.Interfaces;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
@@ -27,7 +28,15 @@ namespace Library.Infrastructure
 
             };
             message.To.Add(new MailAddress(to));
-            await emailClient.SendMailAsync(message);
+            try
+            {
+                //await emailClient.SendMailAsync(message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error while sending email {ex.Message}.");
+            }
+
             _logger.LogWarning($"Sending email to {to} from {from} with subject {subject}.");
         }
     }

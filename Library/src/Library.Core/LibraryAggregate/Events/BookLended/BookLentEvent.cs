@@ -9,11 +9,14 @@ namespace Library.Core.LibraryAggregate.Events.BookLended
 {
     public class BookLentEvent : BaseDomainEvent
     {
-        public BookLentEvent(BookLending bookLending)
+        public BookLentEvent(Guid bookId, Guid patronId)
         {
-            BookLending = bookLending;
+            BookId = bookId;
+            PatronId = patronId;
         }
 
-        public BookLending BookLending { get; set; }
+        public Guid BookId { get; private set; }
+
+        public Guid PatronId { get; private set; }
     }
 }

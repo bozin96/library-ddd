@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Library.Core.LibraryAggregate.Commands.ReserveBooks
 {
-    public class ReserveBooksCommand : BaseCommand<BaseCommandResponse>
+    public class ReserveBooksCommand : BaseCommand
     {
         public Guid LibraryId { get; set; }
 

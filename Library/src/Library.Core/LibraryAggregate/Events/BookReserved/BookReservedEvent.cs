@@ -9,11 +9,14 @@ namespace Library.Core.LibraryAggregate.Events.BookReserved
 {
     public class BookReservedEvent : BaseDomainEvent
     {
-        public BookReservedEvent(BookReservation bookReservation)
+        public BookReservedEvent(Guid bookId, Guid patronId)
         {
-            BookReservation = bookReservation;
+            BookId = bookId;
+            PatronId = patronId;
         }
 
-        public BookReservation BookReservation { get; set; }
+        public Guid BookId { get; set; }
+
+        public Guid PatronId { get; set; }
     }
 }

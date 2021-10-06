@@ -38,7 +38,7 @@ namespace Library.Core.LibraryAggregate
 
         public bool IsExpired()
         {
-            return DateTimeRange.End < DateTime.UtcNow;
+            return DateTimeRange.End.Date < DateTime.UtcNow.Date;
         }
 
         public void CloseLending()

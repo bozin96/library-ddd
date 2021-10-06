@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Library.Core.LibraryAggregate.Commands.AddBooks
 {
-    public class AddBooksCommand : BaseCommand<BaseCommandResponse>
+    public class AddBooksCommand : BaseCommand
     {
         public Guid LibraryId { get; private set; }
 

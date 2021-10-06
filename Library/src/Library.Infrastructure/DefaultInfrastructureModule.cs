@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Library.Core.Interfaces;
-using Library.Core.ProjectAggregate;
 using Library.Infrastructure.Data;
 using Library.SharedKernel.Interfaces;
 using MediatR;
