@@ -1,13 +1,12 @@
 ﻿using Ardalis.ListStartupServices;
 using Autofac;
 using Hangfire;
+using Hangfire.Dashboard;
 using Library.Application.Interfaces;
 using Library.Application.Services;
 using Library.Core;
 using Library.Infrastructure;
-using Library.Infrastructure.Data;
 using Library.SharedKernel;
-using Library.SharedKernel.Extensions;
 using Library.SharedKernel.Interfaces;
 using Library.Web.Configurations;
 using Library.Web.Middlewares;
@@ -106,7 +105,10 @@ namespace Library.Web
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseHangfireDashboard("/hangfire-dashboard");
+            app.UseHangfireDashboard("/hangfire", new DashboardOptions
+            {
+                Authorization = new[] { new LocalRequestsOnlyAuthorizationFilter()}
+            });
 
             app.UseEndpoints(endpoints =>
             {
